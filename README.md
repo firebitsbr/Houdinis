@@ -38,8 +38,8 @@ Backend Support: [docs/BACKENDS.md](docs/BACKENDS.md) - Quantum computing platfo
 
 ### Quick Start
 ```bash
-git clone https://github.com/firebitsbr/houdinisframework.git
-cd houdinis-framework
+git clone https://github.com/firebitsbr/Houdinis.git
+cd Houdinis
 pip install -r requirements.txt
 python main.py
 ```
@@ -312,8 +312,8 @@ Users are responsible for complying with applicable laws and regulations. The au
 
 ### Development Setup
 ```bash
-git clone https://github.com/firebitsbr/houdinisframework.git
-cd houdinis-framework
+git clone https://github.com/firebitsbr/Houdinis.git
+cd Houdinis
 pip install -r requirements.txt
 pip install -r requirements-dev.txt  # Development dependencies
 
@@ -360,8 +360,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 ##  Support
 
-- **GitHub Issues**: [Report bugs and feature requests](https://github.com/firebitsbr/houdinisframework/issues)
-- **Discussions**: [Community discussions and Q&A](https://github.com/firebitsbr/houdinisframework/discussions)
+- **GitHub Issues**: [Report bugs and feature requests](https://github.com/firebitsbr/Houdinis/issues)
+- **Discussions**: [Community discussions and Q&A](https://github.com/firebitsbr/Houdinis/discussions)
 - **Email**: mauro.risonho@gmail.com
 - **Twitter**: [@firebitsbr](https://twitter.com/firebitsbr)
 

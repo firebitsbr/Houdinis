@@ -25,7 +25,7 @@ Author: Mauro Risonho de Paula Assumpção aka firebitsbr
 #### 3. Contact Information
 -  Email: maurorisonho@gmail.com
 -  GitHub: @firebitsbr
--  Repository: https://github.com/firebitsbr/houdinisframework
+-  Repository: https://github.com/firebitsbr/Houdinis
 
 ### Verification
 

@@ -35,7 +35,7 @@ setup(
     description="Advanced Quantum Cryptography Exploitation Framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/firebitsbr/houdinisframework",
+    url="https://github.com/firebitsbr/Houdinis",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",

@@ -373,7 +373,7 @@ def main():
         print("  - Documentation: README.md")
         print("  - Backend guide: BACKENDS.md")
         print("  - Example notebooks: notebooks/")
-        print("  - Project repository: https://github.com/firebitsbr/houdinisframework")
+        print("  - Project repository: https://github.com/firebitsbr/Houdinis")
         
     except KeyboardInterrupt:
         print("\n\n[INTERRUPTED] Demo interrupted by user.")

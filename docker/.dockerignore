@@ -1,0 +1,116 @@
+# Houdinis Framework - Docker Ignore
+# Arquivos e diretórios que devem ser ignorados durante o build Docker
+# Este arquivo está em docker/ mas o contexto de build é a raiz do projeto
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribuição / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Logs
+*.log
+logs/
+*.out
+
+# Ambientes virtuais
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Pytest
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+
+# Docker (excluir pasta docker do contexto)
+docker/
+Dockerfile.backup
+docker-compose.override.yml
+
+# Git
+.git/
+.gitignore
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporários
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Dados de teste/debug
+test_data/
+debug/
+sandbox/
+
+# Configurações locais
+local_config.ini
+.env.local
+secrets.yaml
+
+# Scripts de desenvolvimento local
+local_*.sh
+dev_*.py
+
+# Backups
+*.bak
+*.backup
+*.old
+
+# Arquivos grandes que não devem estar no container
+*.iso
+*.img
+*.tar.gz
+*.zip
+
+# Documentação desnecessária no container
+docs/
+README_DEV.md
+CONTRIBUTING.md

@@ -16,14 +16,15 @@ from core.modules import PayloadModule
 class DecryptTlsModule(PayloadModule):
     """
     TLS traffic decryption payload.
-    
+
     Uses RSA private keys recovered from quantum attacks to decrypt
     previously captured TLS sessions.
     """
-    
+
     def __init__(self):
+        """TODO: Add description for __init__"""
         super().__init__()
-        
+
         self.info = {
             'name': 'TLS Session Decryption Payload',
             'description': 'Decrypts captured TLS traffic using recovered RSA keys',
@@ -31,7 +32,7 @@ class DecryptTlsModule(PayloadModule):
             'version': '1.0',
             'category': 'payload'
         }
-        
+
         # Add payload-specific options
         self.options.update({
             'SESSION': {
@@ -50,16 +51,16 @@ class DecryptTlsModule(PayloadModule):
                 'default': '/tmp/decrypted_content.txt'
             }
         })
-        
+
         # Initialize option values
         self.session = ""
         self.pcap_file = "/tmp/captured_traffic.pcap"
         self.output_file = "/tmp/decrypted_content.txt"
-    
+
     def run(self) -> Dict[str, Any]:
         """
         Execute the TLS decryption payload.
-        
+
         Returns:
             Dict containing decryption results
         """
@@ -68,21 +69,21 @@ class DecryptTlsModule(PayloadModule):
                 'success': False,
                 'error': 'Required options not set'
             }
-        
+
         try:
             session_id = int(self.session)
-            
+
             print(f"[*] Starting TLS decryption using session {session_id}")
             print(f"[*] Loading RSA private key from session...")
-            
+
             # Simulate key loading (in real implementation, get from session manager)
             print(f"[+] RSA private key loaded successfully")
             print(f"[*] Parsing PCAP file: {self.pcap_file}")
-            
+
             # Simulate PCAP processing
             print(f"[*] Found 15 TLS handshakes in capture")
             print(f"[*] Extracting pre-master secrets...")
-            
+
             # Simulate decryption process
             decrypted_sessions = []
             for i in range(3):  # Simulate 3 successful decryptions
@@ -94,13 +95,15 @@ class DecryptTlsModule(PayloadModule):
                     'content_type': 'HTTP' if i == 0 else 'Application Data'
                 }
                 decrypted_sessions.append(session_info)
-                
+
+# TODO: Consider breaking this long line (length: 103)
                 print(f"[+] Session {i+1}: {session_info['client_ip']} -> {session_info['server_ip']}")
+# TODO: Consider breaking this long line (length: 113)
                 print(f"    Decrypted {session_info['decrypted_bytes']} bytes of {session_info['content_type']}")
-            
+
             # Simulate saving results
             print(f"[*] Saving decrypted content to {self.output_file}")
-            
+
             # Mock decrypted content
             sample_content = """
 GET /admin/login HTTP/1.1
@@ -114,7 +117,7 @@ Content-Type: text/html
 
 <html><body>Admin Panel...</body></html>
 """
-            
+
             print(f"[+] TLS decryption completed successfully")
             print(f"[+] Decrypted {len(decrypted_sessions)} TLS sessions")
             print(f"[+] Found sensitive data:")
@@ -122,7 +125,7 @@ Content-Type: text/html
             print(f"    - Session cookies")
             print(f"    - Private application data")
             print(f"[!] Results saved to {self.output_file}")
-            
+
             return {
                 'success': True,
                 'decrypted_sessions': decrypted_sessions,
@@ -134,7 +137,7 @@ Content-Type: text/html
                     'sensitive_data_found': True
                 }
             }
-            
+
         except ValueError:
             return {
                 'success': False,

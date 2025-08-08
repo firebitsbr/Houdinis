@@ -10,7 +10,7 @@ from .session import Session, SessionManager
 __all__ = [
     'HoudinisConsole',
     'BaseModule',
-    'ScannerModule', 
+    'ScannerModule',
     'ExploitModule',
     'PayloadModule',
     'ModuleManager',

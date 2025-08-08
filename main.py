@@ -57,7 +57,7 @@ Examples:
   python main.py --quiet            # Start without banner
         """
     )
-    
+
     parser.add_argument('--resource', '-r',
                        help='Resource script file to execute on startup')
     parser.add_argument('--console', '-c', action='store_true',
@@ -67,29 +67,29 @@ Examples:
     parser.add_argument('--debug', action='store_true',
                        help='Enable debug mode')
     parser.add_argument('--version', action='version', version='Houdinis 1.0.0')
-    
+
     return parser.parse_args()
 
 
 def main():
     """Main entry point for Houdinis framework."""
     args = parse_arguments()
-    
+
     try:
         # Display banner unless quiet mode
         if not args.quiet:
             print_banner()
-        
+
         # Initialize console
         console = HoudinisConsole(debug=args.debug)
-        
+
         # Execute resource script if provided
         if args.resource:
             console.execute_resource_script(args.resource)
-        
+
         # Start interactive console
         console.cmdloop()
-        
+
     except KeyboardInterrupt:
         print("\n[*] Houdinis terminated by user")
         sys.exit(0)

@@ -13,7 +13,7 @@ from datetime import datetime
 def get_banner() -> str:
     """
     Get the Houdinis framework banner.
-    
+
     Returns:
         ASCII art banner string
     """
@@ -56,14 +56,14 @@ Build: Corporate Edition
 Support: Enterprise Level
 """
     ]
-    
+
     return random.choice(banners)
 
 
 def get_version_info() -> str:
     """
     Get version and build information.
-    
+
     Returns:
         Version information string
     """
@@ -83,21 +83,21 @@ def get_version_info() -> str:
 def get_disclaimer() -> str:
     """
     Get legal disclaimer.
-    
+
     Returns:
         Disclaimer text
     """
     disclaimer = """
 LEGAL DISCLAIMER
 
-This tool is designed for authorized penetration testing and security 
-research purposes only. Users are responsible for complying with all 
+This tool is designed for authorized penetration testing and security
+research purposes only. Users are responsible for complying with all
 applicable local, state, national, and international laws.
 
 The authors assume no liability and are not responsible for any misuse
 or damage caused by this program. Use at your own risk.
 
-By using this tool, you agree to use it only on systems you own or 
+By using this tool, you agree to use it only on systems you own or
 have explicit written permission to test.
 
 ═══════════════════════════════════════════════════════════════════
@@ -108,7 +108,7 @@ have explicit written permission to test.
 def get_startup_info() -> str:
     """
     Get startup information including tips.
-    
+
     Returns:
         Startup information string
     """
@@ -120,15 +120,15 @@ def get_startup_info() -> str:
         "Tip: Set 'VERBOSE true' for detailed output in scanner modules",
         "Tip: Check 'show sessions' to manage active exploit sessions"
     ]
-    
+
     info = f"""
 Active modules:
   - Scanners: SSL/TLS quantum vulnerability detection
   - Exploits:  Shor's algorithm RSA factorization
   - Payloads: Post-quantum migration guidance
-  
+
 {random.choice(tips)}
- 
+
 Ready for quantum cryptography security assessment.
 """
     return info
@@ -137,27 +137,27 @@ Ready for quantum cryptography security assessment.
 def print_banner(show_disclaimer: bool = True):
     """
     Print the complete banner with version info.
-    
+
     Args:
         show_disclaimer: Whether to show legal disclaimer
     """
     print(get_banner())
     print(get_version_info())
-    
+
     if show_disclaimer:
         print(get_disclaimer())
-    
+
     print(get_startup_info())
 
 
 def get_module_banner(module_name: str, module_info: dict) -> str:
     """
     Get banner for a specific module.
-    
+
     Args:
         module_name: Name of the module
         module_info: Module information dictionary
-        
+
     Returns:
         Module-specific banner
     """
@@ -176,11 +176,12 @@ def get_module_banner(module_name: str, module_info: dict) -> str:
 def get_quantum_facts() -> str:
     """
     Get random quantum computing facts for educational purposes.
-    
+
     Returns:
         Random quantum fact
     """
     facts = [
+# TODO: Consider breaking this long line (length: 106)
         "Shor's algorithm can factor large integers exponentially faster than known classical algorithms",
         "Grover's algorithm provides quadratic speedup for unstructured search problems",
         "NIST is standardizing post-quantum cryptographic algorithms like CRYSTALS-Kyber",
@@ -191,7 +192,7 @@ def get_quantum_facts() -> str:
         "Quantum error correction requires hundreds of physical qubits per logical qubit",
         "The NSA recommends planning migration to post-quantum cryptography now"
     ]
-    
+
     return f"Quantum Fact: {random.choice(facts)}"
 
 

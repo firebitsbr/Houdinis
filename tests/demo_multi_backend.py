@@ -13,7 +13,7 @@ It demonstrates:
 
 Usage:
     python demo_multi_backend.py
-    
+
 MIT License
 
 Copyright (c) 2025 Mauro Risonho de Paula Assumpção aka firebitsbr
@@ -48,23 +48,23 @@ def print_subsection(title: str):
 def demo_basic_usage():
     """Demonstrate basic Houdinis usage."""
     print_section_header("Basic Houdinis Framework Usage")
-    
+
     print("1. Creating a new Houdinis console...")
     console = HoudinisConsole()
     print("   [PASS] Console initialized")
-    
+
     print("2. Available quantum modules:")
     modules = [
         "auxiliary/quantum_config - Multi-platform quantum backend configuration",
-        "exploits/rsa_shor - RSA factorization using Shor's algorithm", 
+        "exploits/rsa_shor - RSA factorization using Shor's algorithm",
         "exploits/grover_bruteforce - Symmetric key attacks using Grover's",
         "exploits/multi_backend_benchmark - Performance comparison across backends",
         "scanners/quantum_vuln_scanner - Network quantum vulnerability scanner"
     ]
-    
+
     for module in modules:
         print(f"    -  {module}")
-    
+
     print("\n3. Framework capabilities:")
     capabilities = [
         "[PASS] Multi-platform quantum backend support",
@@ -73,7 +73,7 @@ def demo_basic_usage():
         "[PASS] Cryptographic vulnerability assessment",
         "[PASS] Performance benchmarking tools"
     ]
-    
+
     for capability in capabilities:
         print(f"   {capability}")
 
@@ -81,9 +81,9 @@ def demo_basic_usage():
 def demo_quantum_backends():
     """Demonstrate quantum backend configuration."""
     print_section_header("Quantum Backend Configuration")
-    
+
     print("Houdinis supports multiple quantum computing backends:")
-    
+
     backends = {
         "IBM Quantum": {
             "description": "IBM's quantum cloud platform with real quantum hardware",
@@ -111,7 +111,7 @@ def demo_quantum_backends():
             "use_cases": ["Google quantum hardware", "Research algorithms"]
         }
     }
-    
+
     for backend, info in backends.items():
         print_subsection(backend)
         print(f"Description: {info['description']}")
@@ -126,12 +126,12 @@ def demo_quantum_backends():
 def demo_algorithm_comparison():
     """Demonstrate algorithm performance comparison."""
     print_section_header("Algorithm Performance Comparison")
-    
+
     print("Simulating quantum algorithm performance across backends...")
-    
+
     algorithms = ["Shor's Algorithm", "Grover's Algorithm", "QFT", "VQE"]
     backends = ["IBM Quantum", "NVIDIA cuQuantum", "Amazon Braket", "Azure Quantum"]
-    
+
     # Simulate performance data
     performance_data = {
         "Shor's Algorithm": {
@@ -159,23 +159,24 @@ def demo_algorithm_comparison():
             "Azure Quantum": {"time": 67.4, "qubits": 4, "success_rate": 0.83}
         }
     }
-    
+
     print("\nPerformance Comparison Table:")
     print("-" * 90)
     print(f"{'Algorithm':<20} {'Backend':<18} {'Time (s)':<10} {'Qubits':<8} {'Success Rate':<12}")
     print("-" * 90)
-    
+
     for algorithm in algorithms:
         for i, backend in enumerate(backends):
             data = performance_data[algorithm][backend]
             alg_name = algorithm if i == 0 else ""
+# TODO: Consider breaking this long line (length: 122)
             print(f"{alg_name:<20} {backend:<18} {data['time']:<10.1f} {data['qubits']:<8} {data['success_rate']:<12.2%}")
         print("-" * 90)
-    
+
     # Find best backend for each algorithm
     print("\nBest Backend by Algorithm:")
     for algorithm in algorithms:
-        best_backend = min(performance_data[algorithm].items(), 
+        best_backend = min(performance_data[algorithm].items(),
                           key=lambda x: x[1]['time'])
         print(f"  {algorithm}: {best_backend[0]} ({best_backend[1]['time']:.1f}s)")
 
@@ -183,7 +184,7 @@ def demo_algorithm_comparison():
 def demo_security_scenarios():
     """Demonstrate quantum cryptography attack scenarios."""
     print_section_header("Quantum Cryptography Attack Scenarios")
-    
+
     scenarios = {
         "RSA Key Breaking": {
             "algorithm": "Shor's Algorithm",
@@ -193,7 +194,7 @@ def demo_security_scenarios():
             "mitigation": "Migrate to post-quantum cryptography"
         },
         "Symmetric Key Search": {
-            "algorithm": "Grover's Algorithm", 
+            "algorithm": "Grover's Algorithm",
             "target": "AES-128 symmetric keys",
             "impact": "Effective key length reduced to 64 bits",
             "timeline": "15-25 years (large-scale quantum computers)",
@@ -214,7 +215,7 @@ def demo_security_scenarios():
             "mitigation": "Use SHA-3 or quantum-resistant hashes"
         }
     }
-    
+
     for scenario, details in scenarios.items():
         print_subsection(scenario)
         print(f"Algorithm: {details['algorithm']}")
@@ -227,7 +228,7 @@ def demo_security_scenarios():
 def demo_best_practices():
     """Demonstrate best practices for quantum computing with Houdinis."""
     print_section_header("Best Practices for Quantum Computing with Houdinis")
-    
+
     practices = {
         "Backend Selection": [
             "Use simulators for algorithm development and testing",
@@ -254,7 +255,7 @@ def demo_best_practices():
             "Cache simulation results for repeated experiments"
         ]
     }
-    
+
     for category, tips in practices.items():
         print_subsection(category)
         for tip in tips:
@@ -264,7 +265,7 @@ def demo_best_practices():
 def demo_code_examples():
     """Show code examples for using Houdinis."""
     print_section_header("Code Examples")
-    
+
     print_subsection("Basic Quantum Circuit with Houdinis")
     print("""
 # Load Houdinis modules
@@ -290,7 +291,7 @@ shor_module.set_option('BACKEND', 'ibmq_qasm_simulator')
 result = shor_module.run()
 print(f"Factorization result: {result}")
 """)
-    
+
     print_subsection("Multi-Backend Benchmark")
     print("""
 # Load benchmark module
@@ -310,7 +311,7 @@ results = benchmark.run()
 fastest = results['analysis']['fastest_backend']
 print(f"Fastest backend: {fastest}")
 """)
-    
+
     print_subsection("Network Quantum Vulnerability Scan")
     print("""
 # Load quantum network scanner
@@ -337,29 +338,29 @@ def main():
     print("\nWelcome to the Houdinis Framework Multi-Backend Demo!")
     print("This demonstration showcases the quantum computing capabilities")
     print("of the Houdinis Framework across multiple backends.")
-    
+
     # Auto-continue for demonstration
     print("Starting demonstration automatically...\n")
-    
+
     try:
         # Run all demo sections
         demo_basic_usage()
         time.sleep(1)
-        
+
         demo_quantum_backends()
         time.sleep(1)
-        
+
         demo_algorithm_comparison()
         time.sleep(1)
-        
+
         demo_security_scenarios()
         time.sleep(1)
-        
+
         demo_best_practices()
         time.sleep(1)
-        
+
         demo_code_examples()
-        
+
         print_section_header("Demo Complete")
         print(" Thank you for exploring the Houdinis Framework!")
         print("\nNext steps:")
@@ -368,13 +369,13 @@ def main():
         print("  3. Start with the multi_backend_benchmark module")
         print("  4. Explore the various quantum cryptography exploits")
         print("  5. Check out the notebooks/ directory for detailed examples")
-        
+
         print("\n Resources:")
         print("  - Documentation: README.md")
         print("  - Backend guide: BACKENDS.md")
         print("  - Example notebooks: notebooks/")
         print("  - Project repository: https://github.com/firebitsbr/Houdinis")
-        
+
     except KeyboardInterrupt:
         print("\n\n[INTERRUPTED] Demo interrupted by user.")
     except Exception as e:

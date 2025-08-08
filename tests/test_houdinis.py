@@ -25,48 +25,48 @@ sys.path.insert(0, str(project_root))
 def test_imports():
     """Test basic framework imports."""
     print("Testing framework imports...")
-    
+
     try:
         from core.modules import BaseModule
         print("  [PASS] Core modules import successful")
     except ImportError as e:
         print(f"  [FAIL] Core modules import failed: {e}")
         return False
-    
+
     try:
-        from core.session import Session  
+        from core.session import Session
         print("  [PASS] Session module import successful")
     except ImportError as e:
         print(f"  [FAIL] Session module import failed: {e}")
         return False
-    
+
     try:
         from quantum.backend import QuantumBackendManager
         print("  [PASS] Quantum backend import successful")
     except ImportError as e:
         print(f"  [FAIL] Quantum backend import failed: {e}")
         return False
-    
+
     return True
 
 def test_quantum_dependencies():
     """Test quantum computing dependencies."""
     print("Testing quantum computing dependencies...")
-    
+
     # Test Qiskit
     try:
         import qiskit
         print(f"  [PASS] Qiskit {qiskit.__version__} available")
     except ImportError:
         print("  [WARN] Qiskit not available (optional)")
-    
+
     # Test other quantum libraries
     quantum_libs = [
         ('cirq', 'Google Cirq'),
-        ('pennylane', 'PennyLane'), 
+        ('pennylane', 'PennyLane'),
         ('cuquantum', 'NVIDIA cuQuantum'),
     ]
-    
+
     for lib, name in quantum_libs:
         try:
             __import__(lib)
@@ -78,12 +78,13 @@ def test_module_loading():
     """Test if exploit modules can be loaded"""
     print("Testing module loading...")
     exploits_dir = os.path.join(project_root, "exploits")
-    
+
     if not os.path.exists(exploits_dir):
         print("  [FAIL] Exploits directory not found")
         return False
-    
+
     try:
+# TODO: Consider breaking this long line (length: 105)
         exploit_files = [f for f in os.listdir(exploits_dir) if f.endswith('.py') and f != '__init__.py']
         if exploit_files:
             print(f"  [PASS] Found {len(exploit_files)} exploit modules")
@@ -92,7 +93,7 @@ def test_module_loading():
             module_name = f"exploits.{test_module}"
             try:
                 spec = importlib.util.spec_from_file_location(
-                    module_name, 
+                    module_name,
                     os.path.join(exploits_dir, exploit_files[0])
                 )
                 if spec and spec.loader:
@@ -103,7 +104,7 @@ def test_module_loading():
                     print(f"  [WARN] Could not create spec for {test_module}")
             except Exception as e:
                 print(f"    [WARN] {test_module} import warning: {e}")
-                
+
             return True
         else:
             print("  [WARN] No exploit modules found")
@@ -115,10 +116,10 @@ def test_module_loading():
 def test_configuration():
     """Test if configuration files exist"""
     print(" Testing configuration...")
-    
+
     config_files = ["config.ini", "requirements.txt", "setup.py"]
     found_count = 0
-    
+
     for config_file in config_files:
         config_path = os.path.join(project_root, config_file)
         if os.path.exists(config_path):
@@ -126,7 +127,7 @@ def test_configuration():
             found_count += 1
         else:
             print(f"  [WARN] {config_file} not found")
-    
+
     # Check documentation files
     doc_files = ["README.md", "BACKENDS.md", "LICENSE"]
     for doc_file in doc_files:
@@ -136,39 +137,39 @@ def test_configuration():
             found_count += 1
         else:
             print(f"  [WARN] {doc_file} not found")
-    
+
     return found_count > 0
 
 def test_basic_functionality():
     """Test basic framework functionality."""
     print("\n Testing basic functionality...")
-    
+
     try:
         # Test quantum backend manager
         from quantum.backend import QuantumBackendManager
-        
+
         backend_manager = QuantumBackendManager()
         print("  [PASS] Quantum backend manager created successfully")
-        
+
         # Test available backends (simulated)
         available_backends = {
             'aer_simulator': 'Local Qiskit Aer simulator',
             'qasm_simulator': 'QASM simulator',
             'test_backend': 'Test backend for validation'
         }
-        
+
         print(f"  [PASS] Backend system operational ({len(available_backends)} backends)")
-        
+
     except Exception as e:
         print(f"  [WARN] Basic functionality test warning: {e}")
 
 def test_demo_scripts():
     """Test if demo scripts are available"""
     print(" Testing demo scripts...")
-    
+
     demo_files = ["demo_multi_backend.py", "main.py", "run_exploit.py"]
     found_count = 0
-    
+
     for demo_file in demo_files:
         demo_path = os.path.join(project_root, demo_file)
         if os.path.exists(demo_path):
@@ -176,15 +177,15 @@ def test_demo_scripts():
             found_count += 1
         else:
             print(f"  [WARN] {demo_file} not found")
-    
+
     return found_count > 0
 
 def test_notebooks():
     """Test if Jupyter notebooks are available"""
     print(" Testing Jupyter notebooks...")
-    
+
     notebooks_dir = os.path.join(project_root, "notebooks")
-    
+
     if os.path.exists(notebooks_dir):
         try:
             notebook_files = [f for f in os.listdir(notebooks_dir) if f.endswith('.ipynb')]
@@ -201,7 +202,7 @@ def test_notebooks():
             print(f"  [WARN] Error reading notebooks directory: {e}")
     else:
         print("  [WARN] No notebooks directory found")
-        
+
         # Check for notebooks in project root
         try:
             root_notebooks = [f for f in os.listdir(project_root) if f.endswith('.ipynb')]
@@ -210,16 +211,16 @@ def test_notebooks():
                 return True
         except Exception as e:
             print(f"  [WARN] Error checking project root for notebooks: {e}")
-    
+
     return False
 
 def run_installation_check():
     """Run complete installation check."""
     print("Houdinis Framework Installation Test")
     print("=" * 50)
-    
+
     all_tests_passed = True
-    
+
     # Run all tests
     test_functions = [
         test_imports,
@@ -230,7 +231,7 @@ def run_installation_check():
         test_demo_scripts,
         test_notebooks
     ]
-    
+
     for test_func in test_functions:
         try:
             result = test_func()
@@ -239,7 +240,7 @@ def run_installation_check():
         except Exception as e:
             print(f"  [FAIL] Test {test_func.__name__} failed: {e}")
             all_tests_passed = False
-    
+
     print("\n" + "=" * 50)
     if all_tests_passed:
         print("All tests completed successfully!")
@@ -256,7 +257,7 @@ def run_installation_check():
         print("  1. Install missing dependencies: pip install -r requirements.txt")
         print("  2. Check quantum library installations")
         print("  3. Verify file permissions and paths")
-    
+
     return all_tests_passed
 
 def main():

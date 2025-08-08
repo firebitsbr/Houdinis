@@ -20,14 +20,15 @@ from core.modules import ScannerModule
 class QuantumVulnScannerModule(ScannerModule):
     """
     General quantum vulnerability scanner.
-    
+
     Scans for various cryptographic implementations that may be
     vulnerable to quantum attacks including RSA, ECC, and symmetric ciphers.
     """
-    
+
     def __init__(self):
+        """TODO: Add description for __init__"""
         super().__init__()
-        
+
         self.info = {
             'name': 'Quantum Cryptography Vulnerability Scanner',
             'description': 'Identifies cryptographic algorithms vulnerable to quantum attacks',
@@ -35,7 +36,7 @@ class QuantumVulnScannerModule(ScannerModule):
             'version': '1.0',
             'category': 'scanner'
         }
-        
+
         # Add scanner-specific options
         self.options.update({
             'SERVICE': {
@@ -49,11 +50,11 @@ class QuantumVulnScannerModule(ScannerModule):
                 'default': 'true'
             }
         })
-        
+
         # Initialize additional attributes
         self.service = "https"
         self.key_size_check = "true"
-        
+
         # Quantum vulnerability database
         self.quantum_vulnerable_algorithms = {
             'RSA': {
@@ -69,7 +70,7 @@ class QuantumVulnScannerModule(ScannerModule):
                 'mitigation': 'Migrate to post-quantum signatures like CRYSTALS-Dilithium'
             },
             'ECDH': {
-                'threat': 'Shor\'s Algorithm', 
+                'threat': 'Shor\'s Algorithm',
                 'impact': 'Complete break of elliptic curve key exchange',
                 'timeline': 'Vulnerable to quantum computers with ~2048 logical qubits',
                 'mitigation': 'Migrate to post-quantum key exchange like CRYSTALS-Kyber'
@@ -87,7 +88,7 @@ class QuantumVulnScannerModule(ScannerModule):
                 'mitigation': 'Migrate to post-quantum signatures'
             }
         }
-        
+
         self.weak_symmetric_algorithms = {
             'DES': {
                 'current_security': '56 bits',
@@ -96,7 +97,7 @@ class QuantumVulnScannerModule(ScannerModule):
             },
             '3DES': {
                 'current_security': '112 bits',
-                'quantum_security': '56 bits effective (Grover\'s algorithm)', 
+                'quantum_security': '56 bits effective (Grover\'s algorithm)',
                 'recommendation': 'Migrate to AES-256'
             },
             'AES-128': {
@@ -110,11 +111,11 @@ class QuantumVulnScannerModule(ScannerModule):
                 'recommendation': 'Never use - already classically broken'
             }
         }
-    
+
     def run(self) -> Dict[str, Any]:
         """
         Execute the quantum vulnerability scan.
-        
+
         Returns:
             Dict containing scan results
         """
@@ -123,11 +124,11 @@ class QuantumVulnScannerModule(ScannerModule):
                 'success': False,
                 'error': 'Required options not set'
             }
-        
+
         try:
             print(f"[*] Starting quantum vulnerability scan on {self.target}:{self.port}")
             print(f"[*] Service type: {self.service}")
-            
+
             # Initialize results
             scan_results = {
                 'target': self.target,
@@ -138,7 +139,7 @@ class QuantumVulnScannerModule(ScannerModule):
                 'recommendations': [],
                 'risk_score': 0
             }
-            
+
             # Perform service-specific scanning
             if self.service.lower() == 'ssh':
                 scan_results.update(self._scan_ssh())
@@ -146,33 +147,33 @@ class QuantumVulnScannerModule(ScannerModule):
                 scan_results.update(self._scan_https())
             else:
                 scan_results.update(self._scan_generic())
-            
+
             # Analyze results for quantum vulnerabilities
             self._analyze_quantum_threats(scan_results)
-            
+
             # Calculate risk score
             scan_results['risk_score'] = self._calculate_risk_score(scan_results)
-            
+
             # Generate report
             report = self._generate_vulnerability_report(scan_results)
             print(report)
-            
+
             return {
                 'success': True,
                 'scan_results': scan_results,
                 'report': report
             }
-            
+
         except Exception as e:
             return {
                 'success': False,
                 'error': str(e)
             }
-    
+
     def _scan_ssh(self) -> Dict[str, Any]:
         """
         Scan SSH service for quantum vulnerabilities.
-        
+
         Returns:
             SSH-specific scan results
         """
@@ -181,43 +182,43 @@ class QuantumVulnScannerModule(ScannerModule):
             'detected_algorithms': [],
             'errors': []
         }
-        
+
         try:
             # Connect to SSH and get banner/algorithms
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(int(self.timeout))
             sock.connect((self.target, int(self.port)))
-            
+
             # Get SSH banner
             banner = sock.recv(1024).decode('utf-8').strip()
             results['service_details']['banner'] = banner
-            
+
             # Simple SSH algorithm detection (simplified)
             # In practice, you'd need to implement SSH protocol negotiation
             common_ssh_algorithms = [
-                'ssh-rsa', 'ssh-dss', 'ecdsa-sha2-nistp256', 
+                'ssh-rsa', 'ssh-dss', 'ecdsa-sha2-nistp256',
                 'ecdsa-sha2-nistp384', 'ecdsa-sha2-nistp521',
                 'diffie-hellman-group14-sha256', 'diffie-hellman-group16-sha512'
             ]
-            
+
             # For demonstration, assume these are detected
             results['detected_algorithms'] = [
                 {'name': 'ssh-rsa', 'type': 'public_key'},
                 {'name': 'ecdsa-sha2-nistp256', 'type': 'public_key'},
                 {'name': 'diffie-hellman-group14-sha256', 'type': 'key_exchange'}
             ]
-            
+
             sock.close()
-            
+
         except Exception as e:
             results['errors'].append(f"SSH scan error: {str(e)}")
-        
+
         return results
-    
+
     def _scan_https(self) -> Dict[str, Any]:
         """
         Scan HTTPS service for quantum vulnerabilities.
-        
+
         Returns:
             HTTPS-specific scan results
         """
@@ -226,11 +227,11 @@ class QuantumVulnScannerModule(ScannerModule):
             'detected_algorithms': [],
             'errors': []
         }
-        
+
         try:
             # Simple HTTPS check (basic implementation)
             # In practice, you'd want more detailed SSL/TLS analysis
-            
+
             # Simulate detected algorithms for demonstration
             results['detected_algorithms'] = [
                 {'name': 'RSA', 'type': 'public_key', 'key_size': 2048},
@@ -238,18 +239,18 @@ class QuantumVulnScannerModule(ScannerModule):
                 {'name': 'AES-128-GCM', 'type': 'symmetric', 'key_size': 128},
                 {'name': 'SHA-256', 'type': 'hash'}
             ]
-            
+
             results['service_details']['protocol'] = 'TLS 1.2'
-            
+
         except Exception as e:
             results['errors'].append(f"HTTPS scan error: {str(e)}")
-        
+
         return results
-    
+
     def _scan_generic(self) -> Dict[str, Any]:
         """
         Generic service scan for quantum vulnerabilities.
-        
+
         Returns:
             Generic scan results
         """
@@ -258,46 +259,47 @@ class QuantumVulnScannerModule(ScannerModule):
             'detected_algorithms': [],
             'errors': []
         }
-        
+
         try:
             # Basic port connectivity check
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(int(self.timeout))
-            
+
             if sock.connect_ex((self.target, int(self.port))) == 0:
                 results['service_details']['status'] = 'open'
-                
+
                 # Try to grab banner
                 try:
                     sock.send(b"GET / HTTP/1.0\r\n\r\n")
                     banner = sock.recv(1024).decode('utf-8', errors='ignore')
                     results['service_details']['banner'] = banner[:200]  # First 200 chars
-                except:
+                except Exception as e:
+                    # TODO: Handle specific exception types
                     pass
             else:
                 results['service_details']['status'] = 'closed'
-            
+
             sock.close()
-            
+
         except Exception as e:
             results['errors'].append(f"Generic scan error: {str(e)}")
-        
+
         return results
-    
+
     def _analyze_quantum_threats(self, scan_results: Dict[str, Any]):
         """
         Analyze detected algorithms for quantum vulnerabilities.
-        
+
         Args:
             scan_results: Scan results to analyze (modified in place)
         """
         vulnerabilities = []
         recommendations = []
-        
+
         for algorithm in scan_results.get('detected_algorithms', []):
             algo_name = algorithm.get('name', '').upper()
             algo_type = algorithm.get('type', '')
-            
+
             # Check against quantum-vulnerable algorithms
             for vuln_algo, vuln_info in self.quantum_vulnerable_algorithms.items():
                 if vuln_algo in algo_name:
@@ -310,17 +312,17 @@ class QuantumVulnScannerModule(ScannerModule):
                         'severity': 'HIGH',
                         'quantum_vulnerable': True
                     }
-                    
+
                     # Check key size if applicable
                     if self.key_size_check.lower() == 'true' and 'key_size' in algorithm:
                         key_size = algorithm['key_size']
                         if vuln_algo == 'RSA' and key_size < 2048:
                             vulnerability['severity'] = 'CRITICAL'
                             vulnerability['additional_risk'] = f'Weak key size: {key_size} bits'
-                    
+
                     vulnerabilities.append(vulnerability)
                     recommendations.append(vuln_info['mitigation'])
-            
+
             # Check against weak symmetric algorithms
             for weak_algo, weak_info in self.weak_symmetric_algorithms.items():
                 if weak_algo in algo_name:
@@ -333,32 +335,32 @@ class QuantumVulnScannerModule(ScannerModule):
                         'severity': 'MEDIUM' if 'AES-128' in algo_name else 'HIGH',
                         'quantum_vulnerable': True
                     }
-                    
+
                     vulnerabilities.append(vulnerability)
                     recommendations.append(weak_info['recommendation'])
-        
+
         scan_results['vulnerabilities'] = vulnerabilities
         scan_results['recommendations'] = list(set(recommendations))  # Remove duplicates
-    
+
     def _calculate_risk_score(self, scan_results: Dict[str, Any]) -> int:
         """
         Calculate overall quantum risk score (0-100).
-        
+
         Args:
             scan_results: Scan results
-            
+
         Returns:
             Risk score from 0 (low) to 100 (critical)
         """
         vulnerabilities = scan_results.get('vulnerabilities', [])
-        
+
         if not vulnerabilities:
             return 0
-        
+
         score = 0
         for vuln in vulnerabilities:
             severity = vuln.get('severity', 'LOW')
-            
+
             if severity == 'CRITICAL':
                 score += 30
             elif severity == 'HIGH':
@@ -367,16 +369,16 @@ class QuantumVulnScannerModule(ScannerModule):
                 score += 10
             else:
                 score += 5
-        
+
         return min(score, 100)  # Cap at 100
-    
+
     def _generate_vulnerability_report(self, scan_results: Dict[str, Any]) -> str:
         """
         Generate a detailed vulnerability report.
-        
+
         Args:
             scan_results: Scan results
-            
+
         Returns:
             Formatted report string
         """
@@ -389,7 +391,7 @@ class QuantumVulnScannerModule(ScannerModule):
         report.append(f"Scan Time: {scan_results['scan_time']}")
         report.append(f"Risk Score: {scan_results['risk_score']}/100")
         report.append("")
-        
+
         # Risk level classification
         risk_score = scan_results['risk_score']
         if risk_score >= 80:
@@ -402,11 +404,11 @@ class QuantumVulnScannerModule(ScannerModule):
             risk_level = "LOW"
         else:
             risk_level = "MINIMAL"
-        
+
         report.append(f"OVERALL RISK LEVEL: {risk_level}")
         report.append("=" * 70)
         report.append("")
-        
+
         # Detected algorithms
         algorithms = scan_results.get('detected_algorithms', [])
         if algorithms:
@@ -420,23 +422,25 @@ class QuantumVulnScannerModule(ScannerModule):
                     algo_line += f" - {algo['curve']}"
                 report.append(algo_line)
             report.append("")
-        
+
         # Vulnerabilities
         vulnerabilities = scan_results.get('vulnerabilities', [])
         if vulnerabilities:
             report.append("QUANTUM VULNERABILITIES IDENTIFIED:")
             report.append("-" * 40)
-            
+
             critical_vulns = [v for v in vulnerabilities if v['severity'] == 'CRITICAL']
             high_vulns = [v for v in vulnerabilities if v['severity'] == 'HIGH']
             medium_vulns = [v for v in vulnerabilities if v['severity'] == 'MEDIUM']
-            
+
+# TODO: Consider breaking this long line (length: 114)
             for severity, vulns in [('CRITICAL', critical_vulns), ('HIGH', high_vulns), ('MEDIUM', medium_vulns)]:
                 if vulns:
                     report.append(f"\n{severity} SEVERITY:")
                     for vuln in vulns:
                         report.append(f"    {vuln['algorithm']}")
                         report.append(f"      Threat: {vuln['threat']}")
+# TODO: Consider breaking this long line (length: 126)
                         report.append(f"      Impact: {vuln.get('impact', vuln.get('quantum_security', 'Security reduced'))}")
                         if 'additional_risk' in vuln:
                             report.append(f"      Additional Risk: {vuln['additional_risk']}")
@@ -444,7 +448,7 @@ class QuantumVulnScannerModule(ScannerModule):
         else:
             report.append(" No quantum vulnerabilities detected in scanned algorithms")
             report.append("   (Note: This doesn't guarantee complete quantum resistance)")
-        
+
         # Recommendations
         recommendations = scan_results.get('recommendations', [])
         if recommendations:
@@ -452,7 +456,7 @@ class QuantumVulnScannerModule(ScannerModule):
             report.append("-" * 40)
             for i, rec in enumerate(recommendations, 1):
                 report.append(f"{i}. {rec}")
-        
+
         # General quantum readiness advice
         report.append("\nGENERAL QUANTUM READINESS RECOMMENDATIONS:")
         report.append("-" * 40)
@@ -461,7 +465,7 @@ class QuantumVulnScannerModule(ScannerModule):
         report.append("3. Implement crypto-agility in your systems")
         report.append("4. Regularly assess quantum threat timeline")
         report.append("5. Consider hybrid classical/post-quantum solutions")
-        
+
         report.append("\n" + "=" * 70)
-        
+
         return "\n".join(report)

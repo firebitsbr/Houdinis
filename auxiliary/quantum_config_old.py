@@ -94,10 +94,27 @@ class QuantumConfigModule(BaseModule):
         
         if not token:
             try:
-                token = input("Enter your IBM Quantum API token: ").strip()
+                # Use secure input handling
+                import getpass
+                token = getpass.getpass("Enter your IBM Quantum API token (input hidden): ").strip()
+                
+                # Validate token format
+                if token and len(token) < 10:
+                    print("\n[!] Warning: Token appears too short. Please verify.")
+                    return {'success': False, 'error': 'Invalid token format'}
+                    
+                # Sanitize token input
+                import re
+                if token and not re.match(r'^[A-Za-z0-9_-]+$', token):
+                    print("\n[!] Error: Token contains invalid characters.")
+                    return {'success': False, 'error': 'Invalid token characters'}
+                    
             except KeyboardInterrupt:
                 print("\n[*] Setup cancelled")
                 return {'success': False, 'error': 'Setup cancelled'}
+            except Exception as e:
+                print(f"\n[!] Error during token input: {e}")
+                return {'success': False, 'error': 'Token input failed'}
         
         if token:
             result = quantum_backend.initialize_ibmq(token)

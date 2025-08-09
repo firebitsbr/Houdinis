@@ -4,6 +4,16 @@
 
 # Houdinis Framework Dependencies
 
+# Security and Cryptography Libraries (PRIORITY)
+cryptography>=41.0.0  # Updated for security fixes
+pycryptodome>=3.19.0  # Secure cryptographic library
+secrets  # Built-in secure random number generation
+
+# Input Validation and Security
+validators>=0.22.0  # Input validation
+bleach>=6.0.0  # HTML sanitization
+python-ipaddress>=1.0.23  # IP address validation
+
 # Quantum Computing Libraries - IBM Qiskit
 qiskit>=0.45.0
 qiskit-aer>=0.13.0

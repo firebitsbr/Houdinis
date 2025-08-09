@@ -620,12 +620,31 @@ Type 'use <module>' to select a module
         stop = None
         while not stop:
             try:
-                line = input(self.prompt)
+                # Secure input handling with validation
+                line = input(self.prompt).strip()
+                
+                # Input validation and sanitization
+                if len(line) > 1000:  # Prevent buffer overflow
+                    self.console.print("[!] Command too long")
+                    continue
+                
+                # Basic command injection prevention
+                import re
+                if re.search(r'[;&|`$(){}]', line) and not line.startswith(('set ', 'show ', 'use ', 'help')):
+                    self.console.print("[!] Invalid characters in command")
+                    continue
+                
                 line = self.precmd(line)
                 stop = self.onecmd(line)
                 stop = self.postcmd(stop, line)
+                
             except KeyboardInterrupt:
                 self.console.print("\nUse 'exit' or 'quit' to leave")
             except EOFError:
                 self.console.print("\nGoodbye!")
+            except Exception as e:
+                self.console.print(f"[!] Command error: {e}")
+                if self.debug:
+                    import traceback
+                    traceback.print_exc()
                 break

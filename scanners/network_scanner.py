@@ -12,11 +12,17 @@ import ssl
 import sys
 import threading
 import time
+import os
+import ipaddress
 from typing import Dict, Any, List, Tuple
 from datetime import datetime
 
+# Add security module to path
+sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'security'))
 sys.path.append('..')
+
 from core.modules import ScannerModule
+from security.security_config import SecurityConfig
 
 
 class NetworkScannerModule(ScannerModule):

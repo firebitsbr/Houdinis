@@ -1125,19 +1125,39 @@ def setup_ibmq_token():
     print("2. Copy your API token")
     print("3. Enter it below")
     
-    token = input("\nEnter your IBM Quantum API token (or press Enter to skip): ").strip()
-    
-    if token:
-        result = quantum_backend.initialize_ibmq(token)
-        if result['success']:
-            print(f"\n[+] Successfully connected to IBM Quantum!")
-            print(f"[+] Available backends: {len(result['backends'])}")
-            return True
-        else:
-            print(f"\n[!] Connection failed: {result['error']}")
+    try:
+        # Secure input handling with validation
+        import getpass
+        token = getpass.getpass("\nEnter your IBM Quantum API token (input hidden): ").strip()
+        
+        # Validate token format (basic validation)
+        if token and len(token) < 10:
+            print("\n[!] Warning: Token appears too short. Please verify it's correct.")
             return False
-    else:
-        print("\n[*] Skipping IBM Quantum setup. You can configure it later.")
+            
+        # Sanitize token input
+        import re
+        if token and not re.match(r'^[A-Za-z0-9_-]+$', token):
+            print("\n[!] Error: Token contains invalid characters.")
+            return False
+    
+        if token:
+            result = quantum_backend.initialize_ibmq(token)
+            if result['success']:
+                print(f"\n[+] Successfully connected to IBM Quantum!")
+                print(f"[+] Available backends: {len(result['backends'])}")
+                return True
+            else:
+                print(f"\n[!] Connection failed: {result['error']}")
+                return False
+        else:
+            print("\n[*] Skipping IBM Quantum setup. You can configure it later.")
+            return False
+    except KeyboardInterrupt:
+        print("\n[*] Setup cancelled by user.")
+        return False
+    except Exception as e:
+        print(f"\n[!] Unexpected error during setup: {e}")
         return False
 
 

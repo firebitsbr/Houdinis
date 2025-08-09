@@ -19,3 +19,15 @@
 2025-08-09 19:00:07,592 - houdinis_security - INFO - Security Event: file_write - {'path': '/tmp/houdini_secure_t4orjgrq/houdini_91ad1jgt.txt', 'size': '21'}
 2025-08-09 19:00:07,592 - houdinis_security - WARNING - Path traversal attempt: /tmp/houdini_secure_t4orjgrq/houdini_91ad1jgt.txt
 2025-08-09 19:00:07,592 - houdinis_security - WARNING - Path traversal attempt: /tmp/houdini_secure_t4orjgrq/houdini_91ad1jgt.txt
+2025-08-09 19:15:11,186 - houdinis_security - WARNING - Path traversal attempt: ../etc/passwd
+2025-08-09 19:15:11,186 - houdinis_security - WARNING - Path traversal attempt: /etc/shadow
+2025-08-09 19:15:11,187 - houdinis_security - WARNING - Path traversal attempt: ../../test.txt
+2025-08-09 19:15:11,187 - houdinis_security - INFO - Security Event: file_write - {'path': '/tmp/houdini_secure_9d2gjvxz/houdini_kb11zwki.txt', 'size': '21'}
+2025-08-09 19:15:11,188 - houdinis_security - WARNING - Path traversal attempt: /tmp/houdini_secure_9d2gjvxz/houdini_kb11zwki.txt
+2025-08-09 19:15:11,188 - houdinis_security - WARNING - Path traversal attempt: /tmp/houdini_secure_9d2gjvxz/houdini_kb11zwki.txt
+2025-08-09 19:16:35,205 - houdinis_security - WARNING - Path traversal attempt: ../etc/passwd
+2025-08-09 19:16:35,205 - houdinis_security - WARNING - Path traversal attempt: /etc/shadow
+2025-08-09 19:16:35,205 - houdinis_security - WARNING - Path traversal attempt: ../../test.txt
+2025-08-09 19:16:35,206 - houdinis_security - INFO - Security Event: file_write - {'path': '/tmp/houdini_secure_nwnuww78/houdini_bgqaijfh.txt', 'size': '21'}
+2025-08-09 19:16:35,206 - houdinis_security - WARNING - Path traversal attempt: /tmp/houdini_secure_nwnuww78/houdini_bgqaijfh.txt
+2025-08-09 19:16:35,206 - houdinis_security - WARNING - Path traversal attempt: /tmp/houdini_secure_nwnuww78/houdini_bgqaijfh.txt

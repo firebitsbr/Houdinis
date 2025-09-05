@@ -357,6 +357,7 @@ The above copyright notice and this permission notice shall be included in all c
 - **Google** - Cirq quantum computing framework
 - **Xanadu** - PennyLane quantum machine learning
 - **Quantum Computing Community** - Research and collaboration
+- **Claude Code** for AI-assisted development and code optimization
 
 ##  Support
 
